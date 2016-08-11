@@ -1,0 +1,36 @@
+#!/bin/sh
+
+# DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE 
+# Version 2, December 2004 
+
+# Copyright (C) 2016 Ceres Rohana <ceres.rohana@gmail.com>			
+
+# Everyone is permitted to copy and distribute verbatim or modified 
+# copies of this license document, and changing it is allowed as long 
+# as the name is changed. 
+
+# DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE 
+# TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION 
+
+# 0. You just DO WHAT THE FUCK YOU WANT TO.
+
+NEW_BRANCH=$1
+
+if [ "$NEW_BRANCH" ]; then
+	echo "Stashing, creating branch ${NEW_BRANCH} and unstashing previous changes in it."
+
+	# Verify if branch already exists:
+	EXISTS=`git rev-parse --verify ${NEW_BRANCH}`
+	if [ "$EXISTS" ]; then
+		CHECKOUT_CMD="git checkout ${NEW_BRANCH}"
+	else
+		CHECKOUT_CMD="git checkout -b ${NEW_BRANCH}"
+	fi
+
+	git stash
+	${CHECKOUT_CMD}
+	git stash pop
+else
+	echo "Missing branch name."
+fi
+
