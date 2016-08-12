@@ -16,13 +16,14 @@
 
 MY_PK=$1
 TEMP_PK="temp.snk"
-
-echo $MY_PK
-echo $TEMP_PK
+UR_PK="yourpk.txt"
 
 sn -p $MY_PK $TEMP_PK
-sn -q -tp $TEMP_PK > yourPublicKey.txt
+sn -q -tp $TEMP_PK > $UR_PK
 
+echo "I'll copy your PublicKey to the clipboard. :-)"
+cat "$UR_PK" | clip
+echo "Done. Just ctrl+V."
+
+rm -f $UR_PK
 rm -f $TEMP_PK
-
-
